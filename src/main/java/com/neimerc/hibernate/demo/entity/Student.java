@@ -1,5 +1,7 @@
 package com.neimerc.hibernate.demo.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +30,16 @@ public class Student {
 	// @Embedded
 	// the address is embeddable, so no annotation needed here!
 	private Address homeAddress;
+	
+	@AttributeOverrides({
+        @AttributeOverride(name="street", 
+                column=@Column(name = "BILLING_STREET")),
+        @AttributeOverride(name="city", 
+                column=@Column(name = "BILLING_CITY")),
+        @AttributeOverride(name="zip", 
+        column=@Column(name = "BILLING_ZIP"))
+	})
+	private Address billingAddress;
 
 	public Student() {
 	}
@@ -77,6 +89,14 @@ public class Student {
 
 	public void setHomeAddress(Address homeAddress) {
 		this.homeAddress = homeAddress;
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
 	@Override
