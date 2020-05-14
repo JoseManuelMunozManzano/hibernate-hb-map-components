@@ -27,22 +27,25 @@ public class CreateStudentAddressDemo {
 			
 			// create the address object
 			Address homeAddress = new Address("My Street", "My City", "12345");
+			
+			// create the billing address object
+			Address billingAddress = new Address("My Billing Street", "My Billing City", "12121");
 		
 			// start a transaction
 			session.beginTransaction();
 			
 			// save the object
-			System.out.println("Saving the student and address...");
+			System.out.println("Saving the student, address and billing address...");
 			
-			tempStudent.setHomeAddress(homeAddress);		// associate the address
+			tempStudent.setHomeAddress(homeAddress);			// associate the address
+			tempStudent.setBillingAddress(billingAddress);		// associate the address
 			session.persist(tempStudent);
 		
 			// commit the transaction
 			session.getTransaction().commit();
 			System.out.println("Done!");
 			
-		} finally {
-		
+		} finally {		
 			// clean up code
 			session.close();
 			factory.close();
